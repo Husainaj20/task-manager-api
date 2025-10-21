@@ -20,16 +20,26 @@ func main() {
 		port = "8080"
 	}
 
-	memStore := store.NewMemoryStore()
+	var st store.Store
+	if os.Getenv("STORE") == "redis" {
+		addr := os.Getenv("REDIS_ADDR")
+		if addr == "" { addr = "localhost:6379" }
+		r := store.NewRedisStore(addr, "taskmgr")
+		st = r
+	} else {
+		ms := store.NewMemoryStore()
+		st = ms
+	}
+
 	queue := service.NewQueue(8) // 8 workers by default
 	defer queue.Stop()
 
 	queue.SetProcessor(func(ctx context.Context, t *service.TaskWork) error {
 		time.Sleep(150 * time.Millisecond)
-		return memStore.UpdateStatus(ctx, t.ID, "done", t.Result)
+		return st.UpdateStatus(ctx, t.ID, "done", t.Result)
 	})
 
-	h := api.New(memStore, queue)
+	h := api.New(st, queue)
 
 	srv := &http.Server{
 		Addr:    ":" + port,

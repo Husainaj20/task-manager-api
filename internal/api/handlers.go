@@ -12,11 +12,11 @@ import (
 )
 
 type Handler struct {
-	store *store.MemoryStore
+	store store.Store
 	q     *service.Queue
 }
 
-func New(s *store.MemoryStore, q *service.Queue) *Handler {
+func New(s store.Store, q *service.Queue) *Handler {
 	return &Handler{store: s, q: q}
 }
 
