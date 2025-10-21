@@ -3,6 +3,7 @@
 A progressive 14-day implementation demonstrating Go backend fundamentals (REST + concurrency).
 
 ## Quick start
+
 ```bash
 make test
 make run
@@ -10,14 +11,16 @@ make run
 ```
 
 ## Endpoints
+
 - `GET /healthz` - Health check
-- `GET /readiness` - Readiness check  
+- `GET /readiness` - Readiness check
 - `POST /tasks` - Create task (Idempotency-Key supported)
 - `GET /tasks/:id` - Get task by ID
 
 ## Day 2 — Task API Examples
 
 ### Create a task (idempotent if repeated with same key):
+
 ```bash
 curl -s -X POST localhost:8080/tasks \
   -H 'Content-Type: application/json' \
@@ -26,11 +29,13 @@ curl -s -X POST localhost:8080/tasks \
 ```
 
 ### Fetch task by ID:
+
 ```bash
 curl -s localhost:8080/tasks/<TASK_ID>
 ```
 
 ### Example workflow:
+
 ```bash
 # Create a task
 RESPONSE=$(curl -s -X POST localhost:8080/tasks \

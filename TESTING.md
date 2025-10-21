@@ -142,23 +142,23 @@ coverage: ~85–90%
 ## Expected Results Summary
 
 1. Queue test: TestQueue_ProcessesAllAndBecomesIdle
-  → 100 tasks enqueued
-  → All processed within timeout (<= 3s)
-  → WaitIdle() returns true
-  → No race warnings, no leaks
+   → 100 tasks enqueued
+   → All processed within timeout (<= 3s)
+   → WaitIdle() returns true
+   → No race warnings, no leaks
 
 2. Queue test: TestQueue_StopIsIdempotent
-  → Stopping queue twice does not panic or hang
+   → Stopping queue twice does not panic or hang
 
 3. API test: TestTask_StatusEventuallyDone
-  → POST /tasks returns 202 with a valid task ID
-  → Polling GET /tasks/:id eventually returns status "done"
-  → Completes within 2s timeout
+   → POST /tasks returns 202 with a valid task ID
+   → Polling GET /tasks/:id eventually returns status "done"
+   → Completes within 2s timeout
 
-All tests: 
-  → PASS ✅
-  → No FAIL lines in output
-  → Clean shutdown (no goroutine leaks)
+All tests:
+→ PASS ✅
+→ No FAIL lines in output
+→ Clean shutdown (no goroutine leaks)
 
 ## Optional manual verification
 
