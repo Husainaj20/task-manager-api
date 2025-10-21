@@ -1,9 +1,9 @@
 package api
 
 import (
+	"context"
 	"net/http"
 	"time"
-	"context"
 
 	"github.com/gin-gonic/gin"
 	"github.com/husainaj20/task-manager-api/internal/models"
@@ -45,9 +45,9 @@ func (h *Handler) createTask(c *gin.Context) {
 	}
 	idemKey := c.GetHeader("Idempotency-Key")
 	t := &models.Task{
-		Type:   req.Type,
+		Type:    req.Type,
 		Payload: req.Payload,
-		Status: "queued",
+		Status:  "queued",
 	}
 	ctx := context.Background()
 	task, existed, err := h.store.CreateOrGetByKey(ctx, idemKey, t)
@@ -57,7 +57,7 @@ func (h *Handler) createTask(c *gin.Context) {
 	}
 	if !existed {
 		h.q.Enqueue(&service.TaskWork{
-			ID: task.ID,
+			ID:     task.ID,
 			Result: map[string]any{"echo": req.Payload, "processedAt": time.Now().UTC()},
 		})
 	}

@@ -76,7 +76,9 @@ func (m *MemoryStore) UpdateStatus(ctx context.Context, id string, status string
 }
 
 func clone(t *models.Task) *models.Task {
-	if t == nil { return nil }
+	if t == nil {
+		return nil
+	}
 	c := *t
 	return &c
 }

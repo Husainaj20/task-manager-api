@@ -23,7 +23,9 @@ func main() {
 	var st store.Store
 	if os.Getenv("STORE") == "redis" {
 		addr := os.Getenv("REDIS_ADDR")
-		if addr == "" { addr = "localhost:6379" }
+		if addr == "" {
+			addr = "localhost:6379"
+		}
 		r := store.NewRedisStore(addr, "taskmgr")
 		st = r
 	} else {

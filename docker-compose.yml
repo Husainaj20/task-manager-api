@@ -6,15 +6,19 @@ services:
       - "6379:6379"
     volumes:
       - redis-data:/data
+    restart: unless-stopped
+
   api:
     build: .
     environment:
-      - STORE=redis
-      - REDIS_ADDR=redis:6379
+      STORE: "redis"
+      REDIS_ADDR: "redis:6379"
+      PORT: "8080"
     ports:
       - "8080:8080"
     depends_on:
       - redis
+    restart: unless-stopped
 
 volumes:
   redis-data:

@@ -42,7 +42,7 @@ func TestCreateTask_Success(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/tasks", bytes.NewReader(body))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Idempotency-Key", "test-123")
-	
+
 	rec := httptest.NewRecorder()
 	h.Router().ServeHTTP(rec, req)
 
@@ -53,7 +53,7 @@ func TestCreateTask_Success(t *testing.T) {
 	// Verify response contains task data
 	var result map[string]interface{}
 	json.Unmarshal(rec.Body.Bytes(), &result)
-	
+
 	if result["id"] == "" {
 		t.Error("expected task ID in response")
 	}
@@ -79,7 +79,7 @@ func TestCreateTask_ValidationError(t *testing.T) {
 
 	req := httptest.NewRequest(http.MethodPost, "/tasks", bytes.NewReader(body))
 	req.Header.Set("Content-Type", "application/json")
-	
+
 	rec := httptest.NewRecorder()
 	h.Router().ServeHTTP(rec, req)
 
@@ -109,7 +109,7 @@ func TestCreateTask_Idempotency(t *testing.T) {
 	req1 := httptest.NewRequest(http.MethodPost, "/tasks", bytes.NewReader(body))
 	req1.Header.Set("Content-Type", "application/json")
 	req1.Header.Set("Idempotency-Key", "duplicate-test")
-	
+
 	rec1 := httptest.NewRecorder()
 	h.Router().ServeHTTP(rec1, req1)
 
@@ -118,7 +118,7 @@ func TestCreateTask_Idempotency(t *testing.T) {
 	req2 := httptest.NewRequest(http.MethodPost, "/tasks", bytes.NewReader(body2))
 	req2.Header.Set("Content-Type", "application/json")
 	req2.Header.Set("Idempotency-Key", "duplicate-test")
-	
+
 	rec2 := httptest.NewRecorder()
 	h.Router().ServeHTTP(rec2, req2)
 
@@ -153,7 +153,7 @@ func TestGetTask_Success(t *testing.T) {
 	createReq := httptest.NewRequest(http.MethodPost, "/tasks", bytes.NewReader(body))
 	createReq.Header.Set("Content-Type", "application/json")
 	createReq.Header.Set("Idempotency-Key", "get-test")
-	
+
 	createRec := httptest.NewRecorder()
 	h.Router().ServeHTTP(createRec, createReq)
 
