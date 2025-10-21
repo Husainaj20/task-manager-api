@@ -47,3 +47,19 @@ RESPONSE=$(curl -s -X POST localhost:8080/tasks \
 TASK_ID=$(echo $RESPONSE | jq -r '.id')
 curl -s localhost:8080/tasks/$TASK_ID | jq
 ```
+
+## Running with Docker Compose
+
+Start API + Redis:
+
+```bash
+docker compose up --build
+```
+
+Stop and remove:
+
+```bash
+docker compose down
+```
+
+The API will be reachable at http://localhost:8080 and will use Redis as the backing store when `STORE=redis` is set by the compose file.

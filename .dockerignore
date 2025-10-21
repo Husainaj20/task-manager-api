@@ -1,0 +1,6 @@
+**/node_modules
+**/.git
+**/*.md
+**/.DS_Store
+**/internal/store/redis_test.go
+**/internal/service/queue_test.go
