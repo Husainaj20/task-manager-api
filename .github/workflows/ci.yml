@@ -115,4 +115,3 @@ jobs:
         with:
           name: smoke-logs
           path: smoke_logs.txt
-                            -H 'Content-Type: application/json' \
